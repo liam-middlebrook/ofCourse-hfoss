@@ -4,13 +4,14 @@
     <script src="/static/js/jquery.js"></script>
     <link href="/static/css/pace.css" rel="stylesheet" />
   <script>
-
+console.log('stack');
     /**
      * getPostCount
      *
      *
      */
     function getPostCount(username) {
+      console.log('shit');
       var target = ${int(target_number)};
       $.ajax({
         url: "/blog/" + username,
@@ -18,7 +19,8 @@
         dataType: "json",
         success: function(data) {
           var count = data['number'];
-          $('span#' + username).text(count);
+          console.log("number" + count);
+	  $('span#' + username).text(count);
           if (count >= target) {
             $('span#' + username).addClass('label-success');
           } else if (count >= target * 0.8) {
@@ -31,12 +33,13 @@
     }
 
     $(document).ready(function() {
+      console.log('fuck');
       $.each($("div.student"), function(index, elem) {
         var username = $(elem).data('student');
-        getPostCount(username);
+        console.log('user: ' + username);
+	getPostCount(username);
       });
     });
-
   </script>
 </head>
 
@@ -49,7 +52,7 @@
 <div class="row">
   %for student in student_data:
     <div class="col-sm-4">
-      <div class="student shadowcard padded" data-student=${"../blogs/" + student['participant_page']}>
+      <div class="student shadowcard padded" data-student=${student['irc']}>
         <div>
           <img class="uglymug pull-left" src="${gravatar(student.get('avatar', student['rit_dce'] + '@rit.edu'))}" alt="${student['irc']}'s Avatar" />
           <h4 class="item"><a href="${student['participant_page']}">${student['irc']}</a></h4>
